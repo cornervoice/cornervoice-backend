@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: cornervoice-marketing-backend
+    runtime: node
+    plan: starter          # free tier available; upgrade if the demo gets real traffic
+    branch: main
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/index.js
+    healthCheckPath: /health
+    autoDeploy: true
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ANTHROPIC_API_KEY
+        sync: false           # set manually in Render dashboard — never commit real keys
+      - key: ALLOWED_ORIGINS
+        sync: false           # set to your real deployed frontend URL(s)
+      - key: RESEND_API_KEY
+        sync: false
+      - key: CONTACT_NOTIFICATION_EMAIL
+        sync: false
+      - key: CONTACT_FROM_EMAIL
+        sync: false
